@@ -6,13 +6,13 @@
         /* 1. 基本の軸反転設定（通常カーソル移動用） */
         <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
         
-        /* 2. レイヤー5（SCROLL_layer）の時だけ、以降の処理をスクロール挙動に切り替える */
-        <&zip_temp_layer 5 0>, 
-        
-        /* 3. スクロール時の軸調整と量（レイヤー5の時だけ適用されます） */
-        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
-        <&zip_scroll_scaler 1 2>,
+        /* 2. オートマウスレイヤー（レイヤー4）の設定（これで完全復活します） */
+        <&zip_temp_layer 4 1000>,
 
-        /* 4. 元々定義されていたレイヤー4の一時切り替え設定 */
-        <&zip_temp_layer 4 1000>;
+        /* 3. レイヤー5（SCROLL_layer）の時だけ移動をスクロールに変換する（mapperではなく、独立プロセッサとして呼び出し） */
+        <&zip_xy_to_scroll_mapper>,
+        
+        /* 4. スクロール時の軸調整と量（レイヤー5の時だけ効果があります） */
+        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
+        <&zip_scroll_scaler 1 2>;
 };
