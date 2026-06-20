@@ -22,6 +22,10 @@
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
+        
+        /* Snippet（input-listenerなど）が生成する入力リレーデバイスを明示的に指定 */
+        device = <&{/input_relay}>; 
+        
         layers = <5>;
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
