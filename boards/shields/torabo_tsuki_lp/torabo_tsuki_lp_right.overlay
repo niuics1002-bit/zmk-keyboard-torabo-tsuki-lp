@@ -8,7 +8,6 @@
 };
 
 &zip_temp_layer {
-    /* 一時的に全体をコメントアウトして無効化
     excluded-positions = <
         33 // J
         34 // K
@@ -16,12 +15,11 @@
         47 // m
         49 // .
     >;
-    */
 };
 
 / {
     scroller {
-        layers = <6>;
+        layers = <5>;
         input-processors = 
             // <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        //X軸とY軸の入れ替え
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       //X軸反転
