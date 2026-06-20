@@ -2,24 +2,21 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-/* すでに確実に存在する &pointing_listener の中にスクロール子ノードを包含させます */
+/* 1. 通常のカーソル移動用のリスナー（既存の設定） */
 &pointing_listener {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        <&zip_temp_layer 4 1000>;
+};
 
-    trackball_scroller {
-        compatible = "zmk,input-behavior-listener";
-        layers = <5>;
-        evt-type = <INPUT_EV_REL>;
-        x-code = <INPUT_REL_X>;
-        y-code = <INPUT_REL_Y>;
-        input-processors = 
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
-            <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
-            <&zip_scroll_scaler 1 2>;                           // スクロール量を微調整
-    };
+/* 2. input-listenerスニペットが内部で自動生成するib_listenerをオーバーライド */
+&ib_listener {
+    layers = <5>;
+    input-processors = 
+        <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
+        <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
+        <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
+        <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
+        <&zip_scroll_scaler 1 2>;                           // スクロール量を調整
 };
 
 &zip_temp_layer {
