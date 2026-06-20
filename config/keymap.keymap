@@ -15,6 +15,22 @@
         };
     };
 
+    macros {
+        M1: M1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp LEFT>;
+            label = "M1";
+        };
+
+        M0: M0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp INT_MUHENKAN &kp KP_NUMBER_0 &kp KP_NUMBER_1 &kp KP_NUMBER_8 &kp KP_NUMBER_7 &kp KP_NUMBER_5 &kp KP_NUMBER_7 &kp KP_NUMBER_4 &kp KP_NUMBER_2 &kp INT_HENKAN>;
+            label = "M0";
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
