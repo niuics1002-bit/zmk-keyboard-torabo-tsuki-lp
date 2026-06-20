@@ -17,7 +17,7 @@
     >;
 };
 
-/ {
+ {
     scroller {
         layers = <5>;
         input-processors = 
