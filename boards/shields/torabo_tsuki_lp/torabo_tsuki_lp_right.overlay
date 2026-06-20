@@ -20,7 +20,6 @@
 / {
     scroller {
         compatible = "zmk,input-behavior-listener";
-        device = <&vtrackball>; // または &pmw3610 など、元となるデバイス名
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
