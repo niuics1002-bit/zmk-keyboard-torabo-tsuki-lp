@@ -8,15 +8,26 @@
                        <&zip_temp_layer 4 1000>;
 };
 
-/* 2. input-listenerスニペットが内部で自動生成するib_listenerをオーバーライド */
-&ib_listener {
-    layers = <5>;
-    input-processors = 
-        <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
-        <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
-        <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
-        <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
-        <&zip_scroll_scaler 1 2>;                           // スクロール量を調整
+/* 2. レイヤー5（スクロール用）に割り込むリスナーをルート直下に新設 */
+/ {
+    trackball_scroller {
+        compatible = "zmk,input-behavior-listener";
+        status = "okay";
+        
+        /* 大元の pointing_listener の実体ノードを参照して割り込みます */
+        device = <&pointing_listener>; 
+        
+        layers = <5>;
+        evt-type = <INPUT_EV_REL>;
+        x-code = <INPUT_REL_X>;
+        y-code = <INPUT_REL_Y>;
+        input-processors = 
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
+            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
+            <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
+            <&zip_scroll_scaler 1 2>;                           // スクロール量を調整
+    };
 };
 
 &zip_temp_layer {
