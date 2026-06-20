@@ -21,6 +21,7 @@
 / {
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
+        status = "okay";
         layers = <5>;
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
