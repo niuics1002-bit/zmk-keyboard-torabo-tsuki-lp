@@ -1,18 +1,18 @@
 
 #include "../../../config/keymap.keymap"
-/* キーマップファイルの最下部をこのシンプルな構造に差し替えます */
+/* キーマップファイルの最下部をこの構造に差し替えます */
 &pointing_listener {
     input-processors = 
-        /* 1. 基本の軸反転設定 */
+        /* 1. 基本の軸反転設定（通常カーソル移動用） */
         <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
         
-        /* 2. レイヤー5（SCROLL_layer）の時だけ、通過する移動イベントをスクロールへ変換するマッパー */
-        <&zip_xy_to_scroll_mapper>,
+        /* 2. レイヤー5（SCROLL_layer）の時だけ、以降の処理をスクロール挙動に切り替える */
+        <&zip_temp_layer 5 0>, 
         
-        /* 3. スクロール時の軸調整（レイヤー5以外では自動で無視されます） */
+        /* 3. スクロール時の軸調整と量（レイヤー5の時だけ適用されます） */
         <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
         <&zip_scroll_scaler 1 2>,
 
-        /* 4. 元々定義されていた一時レイヤー設定 */
+        /* 4. 元々定義されていたレイヤー4の一時切り替え設定 */
         <&zip_temp_layer 4 1000>;
 };
