@@ -1,16 +1,32 @@
 
 #include "../../../config/keymap.keymap"
 
-/* 1. 通常移動とオートマウス（レイヤー4）を完全に動作させる基本設定 */
+/* 大元のポインティングリスナーの設定 */
 &pointing_listener {
+    /* 通常移動とオートマウス（レイヤー4）のみのクリーンな状態に。
+       常時すべてをスクロールに変換してしまう mapper はここから完全に削除します。 */
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_temp_layer 4 1000>,
-                       <&zip_xy_to_scroll_mapper>,
-                       <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
-                       <&zip_scroll_scaler 1 2>;
+                       <&zip_temp_layer 4 1000>;
 };
 
-/* 2. マッパー自体にレイヤー5の時だけ動くように制限をかけ、通常移動とオートマウスの破壊を防ぐ */
-&zip_xy_to_scroll_mapper {
-    layers = <5>;
+/* システム全体のインプットハンドラへ、レイヤー5のときだけの条件付き割り込みを安全にマージ */
+/ {
+    trackball_scroller {
+        compatible = "zmk,input-behavior-listener";
+        status = "okay";
+        
+        /* すでに確実に両方のシールドに存在するpointing_listenerを捕捉ターゲットにする */
+        device = <&pointing_listener>;
+        
+        layers = <5>;
+        evt-type = <INPUT_EV_REL>;
+        x-code = <INPUT_REL_X>;
+        y-code = <INPUT_REL_Y>;
+        input-processors = 
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
+            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_scroll_scaler 1 2>;
+    };
 };
