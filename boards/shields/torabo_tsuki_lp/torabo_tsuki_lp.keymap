@@ -1,18 +1,16 @@
 #include "../../../config/keymap.keymap"
 
-/* すべてのイベントを安全に一括制御する正しい構成 */
+/* 1. 通常カーソル移動とオートマウス（レイヤー4）を完全に生かす基本構成 */
 &pointing_listener {
     input-processors = 
-        /* 1. トラックボールの基本軸調整 */
         <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-        
-        /* 2. オートマウス（レイヤー4）の設定（これで100%動きます） */
         <&zip_temp_layer 4 1000>,
-
-        /* 3. 【新設】レイヤー5（SCROLL_layer）のときだけ、入力を安全にスクロールへ切り替える */
-        <&zip_scroll_processor 5 0>,
-        
-        /* 4. スクロール時の軸調整と速度量（レイヤー5の時だけ効果が発動します） */
+        <&zip_xy_to_scroll_mapper>,
         <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
         <&zip_scroll_scaler 1 2>;
+};
+
+/* 2. マッパー単体に対して外から「レイヤー5のみで動作する」ように上書き制限をかける */
+&zip_xy_to_scroll_mapper {
+    layers = <5>;
 };
