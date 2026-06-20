@@ -2,19 +2,17 @@
 #include "../../../config/keymap.keymap"
 /* キーマップファイルの最下部をこの構造に差し替えます */
 &pointing_listener {
-    /* 通常の挙動：軸反転とオートマウス（レイヤー4）のみに絞る */
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_temp_layer 4 1000>;
+    input-processors = 
+        /* 1. 基本の軸反転設定（通常カーソル移動用） */
+        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+        
+        /* 2. オートマウスレイヤー（レイヤー4）の設定 */
+        <&zip_temp_layer 4 1000>,
 
-    /* 子ノードとしてレイヤー5（SCROLL_layer）の時だけの割り込み処理を定義 */
-    scroller_bridge {
-        compatible = "zmk,input-listener-processor"; // エラーを回避する正しいプロセッサ型
-        layers = <5>;
-        input-processors = 
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_scroll_scaler 1 2>;
-    };
+        /* 3. レイヤー5（SCROLL_layer）の時だけ入力をスクロールに切り替える */
+        <&zip_scroll_processor 5 0>,
+        
+        /* 4. スクロール時の軸調整と量（レイヤー5の時だけ適用されます） */
+        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
+        <&zip_scroll_scaler 1 2>;
 };
