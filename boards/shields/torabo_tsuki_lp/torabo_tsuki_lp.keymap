@@ -2,17 +2,18 @@
 #include "../../../config/keymap.keymap"
 /* キーマップファイルの最下部をこの構造に差し替えます */
 &pointing_listener {
-    input-processors = 
-        /* 1. 基本の軸反転設定（通常カーソル移動用） */
-        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-        
-        /* 2. オートマウスレイヤー（レイヤー4）の設定 */
-        <&zip_temp_layer 4 1000>,
+    /* 1. 通常移動とオートマウス（レイヤー4）のみのクリーンな状態に戻す */
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_temp_layer 4 1000>;
+};
 
-        /* 3. レイヤー5（SCROLL_layer）の時だけ入力をスクロールに切り替える */
-        <&zip_scroll_processor 5 0>,
-        
-        /* 4. スクロール時の軸調整と量（レイヤー5の時だけ適用されます） */
-        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
-        <&zip_scroll_scaler 1 2>;
+/* 2. グローバルな input_listener の挙動を拡張し、レイヤー5の時にスクロールへ変換する */
+&input_listener {
+    layers = <5>;
+    input-processors = 
+        <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
+        <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
+        <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
+        <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
+        <&zip_scroll_scaler 1 2>;                           // スクロール量を調整
 };
