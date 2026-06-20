@@ -1,34 +1,18 @@
-
 #include "../../../config/keymap.keymap"
 
-/* 大元のポインティングリスナーの設定 */
+/* すべてのイベントを安全に一括制御する正しい構成 */
 &pointing_listener {
-    /* 通常移動とオートマウス（レイヤー4）のみのクリーンな状態に。
-       常時すべてをスクロールに変換してしまう mapper はここから完全に削除します。 */
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_temp_layer 4 1000>;
-};
-
-/* キーマップファイルの最下部（/ { trackball_scroller { ... } };）をこの構造に差し替えます */
-/ {
-    trackball_scroller {
-        compatible = "zmk,input-behavior-listener";
-        status = "okay";
-        device = <&pointing_listener>;
-        layers = <5>;
-        evt-type = <INPUT_EV_REL>;
-        x-code = <INPUT_REL_X>;
-        y-code = <INPUT_REL_Y>;
+    input-processors = 
+        /* 1. トラックボールの基本軸調整 */
+        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
         
-        /* 【重要】大元のpointing_listenerのマウス移動出力をブロックし、
-           このスクロールプロセッサの出力を優先させるスイッチ */
-        behavior; 
+        /* 2. オートマウス（レイヤー4）の設定（これで100%動きます） */
+        <&zip_temp_layer 4 1000>,
 
-        input-processors = 
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_scroll_scaler 1 2>;
-    };
+        /* 3. 【新設】レイヤー5（SCROLL_layer）のときだけ、入力を安全にスクロールへ切り替える */
+        <&zip_scroll_processor 5 0>,
+        
+        /* 4. スクロール時の軸調整と速度量（レイヤー5の時だけ効果が発動します） */
+        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
+        <&zip_scroll_scaler 1 2>;
 };
