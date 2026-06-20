@@ -9,19 +9,21 @@
                        <&zip_temp_layer 4 1000>;
 };
 
-/* システム全体のインプットハンドラへ、レイヤー5のときだけの条件付き割り込みを安全にマージ */
+/* キーマップファイルの最下部（/ { trackball_scroller { ... } };）をこの構造に差し替えます */
 / {
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
-        
-        /* すでに確実に両方のシールドに存在するpointing_listenerを捕捉ターゲットにする */
         device = <&pointing_listener>;
-        
         layers = <5>;
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
+        
+        /* 【重要】大元のpointing_listenerのマウス移動出力をブロックし、
+           このスクロールプロセッサの出力を優先させるスイッチ */
+        behavior; 
+
         input-processors = 
             <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
