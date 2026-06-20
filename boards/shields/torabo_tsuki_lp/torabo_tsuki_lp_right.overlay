@@ -17,20 +17,20 @@
     >;
 };
 
-/* ルート直下に独立したインプットリスナーとして定義します */
-/ {
-    trackball_scroller {
+/* ルートの外側で &trackball を参照し、その下に子ノードとして scroller リスナーを定義します */
+&trackball {
+    scroller {
         compatible = "zmk,input-behavior-listener";
-        layers = <5>;
+        device = <&trackball>;
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
+        layers = <5>;
         input-processors = 
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
-            <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
-            <&zip_scroll_scaler 1 5>;                           // スクロール量を1/5倍
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        //X軸とY軸の入れ替え
+            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       //X軸反転
+            <&zip_xy_to_scroll_mapper>,                         //スクロールモードに変更
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;   //スクロールのX軸反転
     };
 };
 
