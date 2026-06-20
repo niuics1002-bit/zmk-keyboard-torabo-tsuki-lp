@@ -3,7 +3,9 @@
 #include <dt-bindings/zmk/input_transform.h>
 
 &pointing_listener {
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+    // 従来の反転処理（zip_xy_transform）に加えて、レイヤー自動切り替え（zip_automouse_ those）を追加
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_automouse 4 1000>; 
 };
 
 &size_s_transform {
