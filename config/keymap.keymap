@@ -57,7 +57,7 @@
         layer_1 {
             bindings = <
 &trans  &trans                &trans                 &trans         &trans            &trans                     &trans     &trans          &trans           &trans               &trans             &trans
-&trans  &kp EXCL              &kp AT_SIGN            &kp HASH       &kp INT_YEN       &kp PRCNT                  &kp CARET  &kp AMPS        &kp UP           &trans               &trans             &trans
+&trans  &kp EXCL              &kp AT_SIGN            &kp HASH       &kp INT_YEN       &kp PRCNT                  &kp CARET  &kp AMPS        &kp UP           &kp TILDE            &kp MINUS          &trans
 &trans  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LBKT       &kp RBKT          &trans     &trans  &trans  &kp HOME   &mt RCTRL LEFT  &mt RSHIFT DOWN  &mt RIGHT_ALT RIGHT  &mt RIGHT_GUI END  &trans
 &trans  &trans                &trans                 &kp LESS_THAN  &kp GREATER_THAN  &trans     &trans  &trans  &trans     &trans          &trans           &trans               &trans             &trans
 &trans  &trans                &trans                 &trans         &trans            &trans     &trans  &trans  &trans     &trans          &trans           &trans               &trans             &trans
@@ -76,18 +76,18 @@
 
         layer_3 {
             bindings = <
-&trans  &trans   &trans   &trans        &trans        &trans                       &trans            &trans  &trans  &trans     &trans      &trans
-&trans  &kp F1   &kp F2   &kp F3        &kp F4        &kp F5                       &kp HOME          &kp F7  &kp F8  &kp F9     &kp ESCAPE  &trans
-&trans  &kp F6   &kp F7   &kp F8        &kp F9        &kp F10     &trans  &trans   &kp LEFT          &kp F4  &kp F5  &kp F6     &kp TAB     &trans
-&trans  &kp F11  &kp F12  &out OUT_USB  &out OUT_BLE  &bt BT_NXT  &trans  &kp F11  &kp SINGLE_QUOTE  &kp F1  &kp F2  &kp TILDE  &kp PIPE    &trans
-&trans  &trans   &trans   &trans        &kp DELETE    &kp TAB     &trans  &kp F10  &kp F12           &trans  &trans  &trans     &trans      &trans
+&trans  &trans  &trans  &trans        &trans        &trans                       &trans   &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans        &trans        &trans                       &none    &kp F7  &kp F8  &kp F9  &none   &trans
+&trans  &trans  &trans  &trans        &trans        &trans      &trans  &trans   &none    &kp F4  &kp F5  &kp F6  &none   &trans
+&trans  &trans  &trans  &out OUT_USB  &out OUT_BLE  &bt BT_NXT  &trans  &kp F11  &none    &kp F1  &kp F2  &kp F3  &none   &trans
+&trans  &trans  &trans  &trans        &kp DELETE    &kp TAB     &trans  &kp F10  &kp F12  &trans  &trans  &trans  &trans  &trans
             >;
         };
 
         mouse_layer {
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans    &trans    &trans    &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &kp E     &trans    &trans    &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans    &trans    &trans    &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &mkp MB1  &mkp MB3  &mkp MB2  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &mkp MB4  &trans    &mkp MB5  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans    &trans    &trans  &trans
