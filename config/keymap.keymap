@@ -40,11 +40,11 @@
 
         layer_2 {
             bindings = <
-&trans  &trans            &trans            &trans    &trans      &trans                               &trans        &trans                 &trans                       &trans                     &trans               &trans
-&trans  &kp LS(NUMBER_1)  &kp LS(NUMBER_2)  &kp UP    &kp LS(N4)  &kp LS(N5)                           &kp PLUS      &kp KP_NUMBER_7        &kp KP_NUMBER_8              &kp KP_NUMBER_9            &kp DQT              &trans
-&trans  &kp HOME          &kp LEFT          &kp DOWN  &kp RIGHT   &kp END     &trans  &trans           &kp MINUS     &mt RCTRL KP_NUMBER_4  &mt RIGHT_SHIFT KP_NUMBER_5  &mt RIGHT_ALT KP_NUMBER_6  &mt RIGHT_GUI EQUAL  &trans
-&trans  &kp N6            &kp N7            &kp N8    &kp N9      &kp N0      &trans  &kp ASTRK        &kp LS(FSLH)  &kp KP_NUMBER_1        &kp KP_NUMBER_2              &kp KP_NUMBER_3            &kp COLON            &trans
-&trans  &trans            &trans            &trans    &trans      &trans      &trans  &kp KP_NUMBER_0  &kp ENTER     &trans                 &trans                       &kp DOT                    &kp BACKSPACE        &trans
+&trans  &trans       &trans    &trans    &trans     &trans                                  &trans        &trans                 &trans                       &trans                     &trans               &trans
+&trans  &kp PAGE_UP  &none     &kp UP    &none      &kp PAGE_DOWN                           &kp PLUS      &kp KP_NUMBER_7        &kp KP_NUMBER_8              &kp KP_NUMBER_9            &kp DQT              &trans
+&trans  &kp HOME     &kp LEFT  &kp DOWN  &kp RIGHT  &kp END        &trans  &trans           &kp MINUS     &mt RCTRL KP_NUMBER_4  &mt RIGHT_SHIFT KP_NUMBER_5  &mt RIGHT_ALT KP_NUMBER_6  &mt RIGHT_GUI EQUAL  &trans
+&trans  &none        &none     &none     &none      &none          &trans  &kp ASTRK        &kp LS(FSLH)  &kp KP_NUMBER_1        &kp KP_NUMBER_2              &kp KP_NUMBER_3            &kp COLON            &trans
+&trans  &trans       &trans    &trans    &trans     &trans         &trans  &kp KP_NUMBER_0  &kp ENTER     &trans                 &trans                       &kp DOT                    &kp BACKSPACE        &trans
             >;
         };
 
