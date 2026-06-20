@@ -2,31 +2,28 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-/* 1. 通常のカーソル移動用のリスナー（既存の設定） */
+/* 大元のポインティングリスナーの設定 */
 &pointing_listener {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        <&zip_temp_layer 4 1000>;
 };
 
-/* 2. レイヤー5（スクロール用）に割り込むリスナーをルート直下に新設 */
+/* 通常のカーソル移動とは別に、独立したレイヤー5用のスクロールリスナーを定義 */
 / {
     trackball_scroller {
-        compatible = "zmk,input-behavior-listener";
+        compatible = "zmk,input-listener"; // behaviorではなく標準のinput-listenerを使用
         status = "okay";
-        
-        /* 大元の pointing_listener の実体ノードを参照して割り込みます */
-        device = <&pointing_listener>; 
-        
-        layers = <5>;
-        evt-type = <INPUT_EV_REL>;
-        x-code = <INPUT_REL_X>;
-        y-code = <INPUT_REL_Y>;
-        input-processors = 
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
-            <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
-            <&zip_scroll_scaler 1 2>;                           // スクロール量を調整
+        device = <&pointing_listener>; // pointing_listener からデータを受け取る
+
+        scroller {
+            layers = <5>;
+            input-processors = 
+                <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
+                <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
+                <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
+                <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
+                <&zip_scroll_scaler 1 2>;                           // スクロール量を調整
+        };
     };
 };
 
