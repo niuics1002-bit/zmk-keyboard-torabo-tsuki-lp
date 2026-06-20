@@ -2,21 +2,30 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-/* 既存の pointing_listener をオーバーレイして、通常時とスクロール時のプロセッサを登録 */
+/* 1. 通常のカーソル移動用のリスナー（既存の設定に戻す） */
 &pointing_listener {
-    input-processors = 
-        /* 1. 軸の反転（通常時） */
-        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-        
-        /* 2. レイヤー5（スクロールレイヤー）のときだけスクロール挙動にマッパーする */
-        <&zip_xy_to_scroll_mapper>,
-        
-        /* 3. スクロール時の軸調整（レイヤー5のみ効果あり） */
-        <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-        <&zip_scroll_scaler 1 2>,
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_temp_layer 4 1000>;
+};
 
-        /* 4. 元々あった一時レイヤーの設定 */
-        <&zip_temp_layer 4 1000>;
+/* 2. レイヤー5のときだけ動く、独立したスクロール専用のリスナーを定義 */
+/ {
+    /* input_listener というZMK標準の入力ノードをターゲットにして上書きします */
+    &input_listener {
+        trackball_scroller {
+            compatible = "zmk,input-behavior-listener";
+            layers = <5>;
+            evt-type = <INPUT_EV_REL>;
+            x-code = <INPUT_REL_X>;
+            y-code = <INPUT_REL_Y>;
+            input-processors = 
+                <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
+                <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
+                <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
+                <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
+                <&zip_scroll_scaler 1 2>;                           // スクロール量を1/5倍
+        };
+    };
 };
 
 &zip_temp_layer {
