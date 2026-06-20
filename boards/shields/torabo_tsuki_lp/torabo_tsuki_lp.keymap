@@ -1,18 +1,24 @@
 
 #include "../../../config/keymap.keymap"
-/* キーマップファイルの末尾をこちらに差し替えます */
-&pointing_listener {
-    scroller {
-        compatible = "zmk,input-behavior-listener";
-        layers = <5>;
-        evt-type = <INPUT_EV_REL>;
-        x-code = <INPUT_REL_X>;
-        y-code = <INPUT_REL_Y>;
-        input-processors = 
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
-            <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
-            <&zip_scroll_scaler 1 2>;                           // スクロール量を調整
+/* キーマップファイルの末尾をこの構造に差し替えます */
+/ {
+    // 競合を起こさない独立したインプットリスナーをルート直下に定義
+    custom_scroll_listener {
+        compatible = "zmk,input-listener";
+        status = "okay";
+        
+        // ログから判明した物理トラックボールデバイスのフルパスを直接指定して横取り
+        device = <&{/soc/spi@40003000/pointing_device@0}>;
+
+        // レイヤー5のときだけ発動するスクロール処理
+        scroller {
+            layers = <5>;
+            input-processors = 
+                <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        // X軸とY軸の入れ替え
+                <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       // X軸反転
+                <&zip_xy_to_scroll_mapper>,                         // スクロールモードに変更
+                <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   // スクロールのX軸反転
+                <&zip_scroll_scaler 1 2>;                           // スクロール量を調整
+        };
     };
 };
