@@ -1,33 +1,31 @@
 #include "../../../config/keymap.keymap"
 
 / {
-    /* 独自の新設マッパーノード */
-    my_scroll_mapper: my_scroll_mapper {
-        compatible = "zmk,input-processor-code-mapper";
+    /* 【新設】レイヤー5（SCROLL_layer）にいるときだけ、移動をスクロールに変換するラッパーノード */
+    zip_scroll_layer5: zip_scroll_layer5 {
+        compatible = "zmk,input-processor-layer-wrapper";
         #input-processor-cells = <0>;
         
-        /* 文字列ではなく、正しい数値型（マクロ）に修正 */
-        type = <INPUT_EV_REL>;
+        /* レイヤー5のときだけ中身を実行する */
+        layers = <5>; 
         
-        /* レイヤー5（SCROLL_layer）の時だけ、移動をスクロールに変換する指定 */
-        layers = <5>;
-        
-        map = <INPUT_REL_X INPUT_REL_HWHEEL>, <INPUT_REL_Y INPUT_REL_WHEEL>;
+        /* ラッパーの中で標準のマッパーを安全に呼び出す */
+        input-processors = <&zip_xy_to_scroll_mapper>; 
     };
 };
 
 &pointing_listener {
     input-processors = 
-        /* 1. トラックボールの基本軸調整 */
+        /* 1. トラックボールの基本軸調整（通常移動・スクロール共通） */
         <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
         
-        /* 2. オートマウス（通常時に動かすとレイヤー4へ1秒間スイッチ） */
+        /* 2. オートマウス（レイヤー4への自動切り替え：通常移動時に100%作動します） */
         <&zip_temp_layer 4 1000>,
 
-        /* 3. 独自に用意したレイヤー5限定のマッパーを呼び出す */
-        <&my_scroll_mapper>,
+        /* 3. 【解決】レイヤー5にいるときだけ、移動をスクロール信号にすり替える */
+        <&zip_scroll_layer5>,
         
-        /* 4. スクロール時の軸調整と速度量 */
+        /* 4. スクロール時の軸調整と速度量（スクロールモードになった時だけ自動で発動します） */
         <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
         <&zip_scroll_scaler 1 2>;
 };
