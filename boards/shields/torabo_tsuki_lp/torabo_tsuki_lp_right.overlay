@@ -35,15 +35,15 @@
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 重要：仮想ハブではなく、右手に実在するトラックボールの物理ノードを指定して横取りする */
-        device = <&input_trackball>;
+        /* 存在する共通の入力リスナーハブを正しく指定 */
+        device = <&pointing_listener>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* レイヤー5にいる間、このセンサーからの「通常のマウス移動出力」をブロックする */
+        /* 通常のマウス移動出力をこのレイヤーの間だけブロックする */
         behavior; 
 
         input-processors = 
