@@ -2,7 +2,6 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-/* 大元の通常移動とオートマウスの設定 */
 &pointing_listener {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        <&zip_temp_layer 4 1000>;
@@ -21,32 +20,3 @@
 &size_s_transform { col-offset = <7>; };
 &size_m_transform { col-offset = <7>; };
 &size_l_transform { col-offset = <7>; };
-
-/ {
-    /* 右手側だけで動作する、レイヤー5専用の独立したスクロール割り込みリスナー */
-    trackball_scroller {
-        compatible = "zmk,input-behavior-listener";
-        status = "okay";
-        
-        /* 元々機能していた大元のポインティングリスナーをデバイスに指定 */
-        device = <&pointing_listener>;
-        
-        layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
-        evt-type = <INPUT_EV_REL>;
-        x-code = <INPUT_REL_X>;
-        y-code = <INPUT_REL_Y>;
-        
-        /* レイヤー5の間だけ、通常のポインティング移動を完全にブロック（ミュート）する */
-        behavior; 
-
-        input-processors = 
-            /* 1. XY軸をスワップ（スクロール方向に適合） */
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>, 
-            
-            /* 2. 移動をスクロール（ホイール）イベントにマッピング */
-            <&zip_xy_to_scroll_mapper>, 
-            
-            /* 3. スクロール変化量の調整（感度を20倍に強化） */
-            <&zip_scroll_scaler 20 1>;
-    };
-};
