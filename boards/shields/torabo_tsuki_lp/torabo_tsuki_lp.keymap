@@ -6,19 +6,20 @@
                        <&zip_temp_layer 4 1000>;
 };
 
-/* 2. 右手側（トラックボール搭載側）のビルド時のみ、スクロールレイヤー（レイヤー5）を有効化する */
-#if DT_NODE_HAS_COMPAT(DT_NODELABEL(pointing_device), pixart_paw3222) || DT_NODE_EXISTS(DT_NODELABEL(pointing_device))
-
+/* 2. トラックボールの物理センサーから直接イベントを横取りしてレイヤー5の時だけスクロールにすり替える */
 / {
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
-        device = <&pointing_listener>;
-        layers = <5>;
+        
+        /* スニペットの読み込み後であるキーマップ内なので、このラベルが100%安全に参照できます */
+        device = <&pointing_device>;
+        
+        layers = <5>; // SCROLL_layer（レイヤー5）の時だけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
-        behavior;
+        behavior; // 通常のカーソル移動をミュートしてスクロールを優先する
 
         input-processors = 
             <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
@@ -28,5 +29,3 @@
             <&zip_scroll_scaler 1 2>;
     };
 };
-
-#endif
