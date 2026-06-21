@@ -1,20 +1,20 @@
 #include "../../../config/keymap.keymap"
 
 / {
-    /* 【新設】レイヤー5（SCROLL_layer）の時だけ、ハブから移動イベントを横取りしてスクロールにすり替える */
+    /* 【確定正解】レイヤー5（SCROLL_layer）の時だけ、ハブから移動イベントを完全に奪い取ってスクロールにする */
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 左右どちらのビルド環境でも100%確実に存在する共通ハブをターゲットに指定 */
+        /* 左右どちらのビルド環境でも100%確実に解釈されるグローバルラベルを指定 */
         device = <&pointing_listener>;
         
-        layers = <5>; // レイヤー5のときだけ発動（型仕様として100%許可されています）
+        layers = <5>; // レイヤー5のときだけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* 通常のマウス移動出力をこのレイヤーの間だけ完全にミュート（ブロック）する */
+        /* 通常のマウス移動出力をこのレイヤーの間だけ【完全にミュート（遮断）】する */
         behavior; 
 
         input-processors = 
@@ -26,7 +26,7 @@
     };
 };
 
-/* 大元のポインティングリスナー（通常移動とオートマウス専用） */
+/* 大元のポインティングリスナー（通常移動とオートマウス専用に分離） */
 &pointing_listener {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        <&zip_temp_layer 4 1000>;
