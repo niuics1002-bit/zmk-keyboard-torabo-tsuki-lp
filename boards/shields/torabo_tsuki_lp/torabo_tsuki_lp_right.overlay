@@ -29,21 +29,21 @@
 &size_l_transform {
     col-offset = <7>;
 };
-/* ファイルの最下部に追記 */
+/* torabo_tsuki_lp_right.overlay の最下部に上書き貼り付け */
 / {
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 右手側に確実に存在する物理センサーを直接ターゲットにする */
-        device = <&pointing_device>;
+        /* エラー原因の pointing_device から、共通して存在するポインティングリスナーに変更 */
+        device = <&pointing_listener>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* 大元の通常カーソル移動をミュートして、スクロールにすり替える */
+        /* 通常のマウスカーソル移動を一時的に遮断し、スクロール出力を優先させる */
         behavior; 
 
         input-processors = 
