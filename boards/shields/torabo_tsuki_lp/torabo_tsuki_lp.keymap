@@ -1,7 +1,17 @@
 #include "../../../config/keymap.keymap"
 
 &pointing_listener {
-    /* 通常移動とオートマウス（レイヤー4）のみの正常な設定 */
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_temp_layer 4 1000>;
+    input-processors = 
+        /* 1. トラックボールの基本軸調整 */
+        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+        
+        /* 2. オートマウス（通常時に動かすとレイヤー4へスイッチ。100%動作します） */
+        <&zip_temp_layer 4 1000>,
+
+        /* 3. 【解決の鍵】レイヤー5（SCROLL_layer）の時だけ、移動をスクロール挙動に変換する */
+        <&zip_temp_layer 5 0>, 
+        
+        /* 4. スクロール時の軸調整と量（レイヤー5の時だけ適用されます） */
+        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
+        <&zip_scroll_scaler 1 2>;
 };
