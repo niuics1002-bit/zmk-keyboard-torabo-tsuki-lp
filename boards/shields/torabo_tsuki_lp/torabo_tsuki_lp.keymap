@@ -1,33 +1,22 @@
 #include "../../../config/keymap.keymap"
 
-/* 1. トラックボールの物理センサーが存在する環境でのみ、安全にスクロールリスナーを注入する */
-&pointing_device {
-    /* 物理センサー（&pointing_device）の子ノードとして定義することで、
-       センサーが存在しない左手ビルドではこのブロックごと安全に無視されます */
-    trackball_scroller {
-        compatible = "zmk,input-behavior-listener";
-        status = "okay";
+&pointing_listener {
+    input-processors = 
+        /* 1. トラックボールの基本軸調整 */
+        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
         
-        /* 自分自身の親（センサーノード）を直接ターゲットにする */
-        device = <&pointing_device>;
-        
-        layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
-        evt-type = <INPUT_EV_REL>;
-        x-code = <INPUT_REL_X>;
-        y-code = <INPUT_REL_Y>;
-        behavior; // 通常のカーソル移動をミュートしてスクロールを優先する
+        /* 2. オートマウス（通常時に動かすとレイヤー4へスイッチ） */
+        <&zip_temp_layer 4 1000>,
 
-        input-processors = 
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_scroll_scaler 1 2>;
-    };
+        /* 3. 【解決の鍵】レイヤー5（SCROLL_layer）の時だけ、移動をスクロールに安全にマッピングする */
+        <&zip_xy_to_scroll_mapper>,
+        
+        /* 4. スクロール時の軸調整と速度量 */
+        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
+        <&zip_scroll_scaler 1 2>;
 };
 
-/* 2. 大元のポインティングリスナー（通常移動とオートマウス専用） */
-&pointing_listener {
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_temp_layer 4 1000>;
+/* 5. マッパー単体に対して「レイヤー5」のプロパティを外側から安全に上書き注入する */
+&zip_xy_to_scroll_mapper {
+    layers = <5>;
 };
