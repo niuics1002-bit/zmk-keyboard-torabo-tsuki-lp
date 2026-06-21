@@ -2,9 +2,9 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-/* 通常のカーソル移動用のリスナー設定のみ残す */
+/* 大元の通常移動とオートマウスの設定 */
 &pointing_listener {
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>, 
                        <&zip_temp_layer 4 1000>;
 };
 
@@ -18,43 +18,35 @@
     >;
 };
 
-&size_s_transform {
-    col-offset = <7>;
-};
-
-&size_m_transform {
-    col-offset = <7>;
-};
-
-&size_l_transform {
-    col-offset = <7>;
-};
+&size_s_transform { col-offset = <7>; };
+&size_m_transform { col-offset = <7>; };
+&size_l_transform { col-offset = <7>; };
 
 / {
-    /* 右手ビルド時のみ読み込まれる、レイヤー5専用の独立したスクロールリスナー */
+    /* 右手側だけで動作する、レイヤー5専用の独立したスクロール割り込みリスナー */
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 【確定】スニペットが定義する物理センサーの正式なラベル名から直接生イベントを奪う */
-        device = <&pointing_device>;
+        /* 以前機能していた正しいデバイスハブを指定 */
+        device = <&pointing_listener>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* レイヤー5の間だけ、大元の通常マウス移動を完全に隠蔽（遮断）する */
+        /* レイヤー5の間だけ、通常のポインティング移動を完全にブロック（ミュート）する */
         behavior; 
 
         input-processors = 
-            /* 1. XY軸をスワップ（上下左右の回転方向をホイールに適合させる） */
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
+            /* 1. XY軸をスワップ（スクロール方向に適合） */
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>, 
             
-            /* 2. 移動イベントをスクロール（ホイール）イベントに変換 */
-            <&zip_xy_to_scroll_mapper>,
+            /* 2. 移動をスクロール（ホイール）イベントにマッピング */
+            <&zip_xy_to_scroll_mapper>, 
             
-            /* 3. スクロール量を十分に確保（感度調整） */
+            /* 3. スクロール変化量の調整（以前少なかった場合はここを20から適宜調整してください） */
             <&zip_scroll_scaler 20 1>;
     };
 };
