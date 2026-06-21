@@ -28,22 +28,22 @@
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 実績のある大元のリスナーハブをターゲットに指定 */
-        device = <&pointing_listener>;
+        /* 【確定】オートマウスの入っているハブの手前（物理センサー）から直接イベントを横取りする */
+        device = <&pointing_device>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* レイヤー5の間だけ、通常のポインティング移動を完全にブロック（ミュート）する */
+        /* レイヤー5の間だけ、通常のマウス移動・オートマウスへの透過を完全にシャットアウトする */
         behavior; 
 
         input-processors = 
             /* 1. 移動をスクロール（ホイール）イベントにマッピング */
             <&zip_xy_to_scroll_mapper>, 
             
-            /* 2. 【大幅変更】スクロールの量をさらに大きく引き上げる（30倍） */
+            /* 2. スクロール変化量の調整（30倍） */
             <&zip_scroll_scaler 30 1>;
     };
 };
