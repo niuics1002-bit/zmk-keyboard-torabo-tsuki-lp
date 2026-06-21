@@ -29,21 +29,21 @@
 &size_l_transform {
     col-offset = <7>;
 };
-/* torabo_tsuki_lp_right.overlay の最下部に上書き貼り付け */
+/* torabo_tsuki_lp_right.overlay の最下部（33行目〜末尾）をこちらに差し替え */
 / {
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* エラー原因の pointing_device から、共通して存在するポインティングリスナーに変更 */
-        device = <&pointing_listener>;
+        /* 重要：仮想ハブではなく、右手に実在するトラックボールの物理ノードを指定して横取りする */
+        device = <&input_trackball>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* 通常のマウスカーソル移動を一時的に遮断し、スクロール出力を優先させる */
+        /* レイヤー5にいる間、このセンサーからの「通常のマウス移動出力」をブロックする */
         behavior; 
 
         input-processors = 
