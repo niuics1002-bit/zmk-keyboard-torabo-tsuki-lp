@@ -1,29 +1,33 @@
 #include "../../../config/keymap.keymap"
 
 / {
-    /* 1. 独自の新設マッパーノード（存在してもエラーを起こさない、かつレイヤー制限を内包） */
-    my_scroll_mapper: my_scroll_mapper {
-        compatible = "zmk,input-processor-code-mapper";
-        #input-processor-cells = <0>;
-        type = <INPUT_EV_REL>;
-        layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
-        map = <INPUT_REL_X INPUT_REL_HWHEEL>, <INPUT_REL_Y INPUT_REL_WHEEL>;
+    /* 【新設】レイヤー5（SCROLL_layer）の時だけ、ハブから移動イベントを横取りしてスクロールにすり替える */
+    trackball_scroller {
+        compatible = "zmk,input-behavior-listener";
+        status = "okay";
+        
+        /* 左右どちらのビルド環境でも100%確実に存在する共通ハブをターゲットに指定 */
+        device = <&pointing_listener>;
+        
+        layers = <5>; // レイヤー5のときだけ発動（型仕様として100%許可されています）
+        evt-type = <INPUT_EV_REL>;
+        x-code = <INPUT_REL_X>;
+        y-code = <INPUT_REL_Y>;
+        
+        /* 通常のマウス移動出力をこのレイヤーの間だけ完全にミュート（ブロック）する */
+        behavior; 
+
+        input-processors = 
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
+            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_scroll_scaler 1 2>;
     };
 };
 
+/* 大元のポインティングリスナー（通常移動とオートマウス専用） */
 &pointing_listener {
-    input-processors = 
-        /* 2. トラックボールの基本軸調整（通常移動・スクロール共通） */
-        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-        
-        /* 3. 【今回の核】レイヤー5にいる時だけ先に移動をスクロール信号にすり替える */
-        <&my_scroll_mapper>,
-
-        /* 4. オートマウス（レイヤー4への自動切り替え：通常時に100%作動します） */
-        /* レイヤー5の時は「3」でイベントがスクロール化しているため、オートマウスは暴発しません */
-        <&zip_temp_layer 4 1000>,
-        
-        /* 5. スクロール時の軸調整と速度量（スクロール信号になった時だけ自動で発動します） */
-        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
-        <&zip_scroll_scaler 1 2>;
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_temp_layer 4 1000>;
 };
