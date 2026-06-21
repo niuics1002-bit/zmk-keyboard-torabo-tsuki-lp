@@ -1,13 +1,14 @@
 #include "../../../config/keymap.keymap"
 
-/ {
-    /* スニペットが読み込まれないビルド環境でも未定義エラーを起こさないためのダミー定義 */
-    pointing_device: pointing_device { };
-
-    /* トラックボールの物理センサーから直接イベントを横取りし、レイヤー5の時だけスクロールにすり替える */
+/* 1. トラックボールの物理センサーが存在する環境でのみ、安全にスクロールリスナーを注入する */
+&pointing_device {
+    /* 物理センサー（&pointing_device）の子ノードとして定義することで、
+       センサーが存在しない左手ビルドではこのブロックごと安全に無視されます */
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
+        
+        /* 自分自身の親（センサーノード）を直接ターゲットにする */
         device = <&pointing_device>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
@@ -25,7 +26,7 @@
     };
 };
 
-/* 大元のポインティングリスナー（通常移動とオートマウス専用） */
+/* 2. 大元のポインティングリスナー（通常移動とオートマウス専用） */
 &pointing_listener {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        <&zip_temp_layer 4 1000>;
