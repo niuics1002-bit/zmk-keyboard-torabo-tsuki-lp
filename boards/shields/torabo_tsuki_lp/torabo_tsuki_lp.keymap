@@ -1,10 +1,29 @@
 #include "../../../config/keymap.keymap"
 
+/ {
+    /* 1. 独自の新設マッパーノード（存在してもエラーを起こさない、かつレイヤー制限を内包） */
+    my_scroll_mapper: my_scroll_mapper {
+        compatible = "zmk,input-processor-code-mapper";
+        #input-processor-cells = <0>;
+        type = <INPUT_EV_REL>;
+        layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
+        map = <INPUT_REL_X INPUT_REL_HWHEEL>, <INPUT_REL_Y INPUT_REL_WHEEL>;
+    };
+};
+
 &pointing_listener {
     input-processors = 
-        /* トラックボールの基本軸調整 */
+        /* 2. トラックボールの基本軸調整（通常移動・スクロール共通） */
         <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
         
-        /* オートマウス（通常時に動かすとレイヤー4へ1秒間スイッチ） */
-        <&zip_temp_layer 4 1000>;
+        /* 3. 【今回の核】レイヤー5にいる時だけ先に移動をスクロール信号にすり替える */
+        <&my_scroll_mapper>,
+
+        /* 4. オートマウス（レイヤー4への自動切り替え：通常時に100%作動します） */
+        /* レイヤー5の時は「3」でイベントがスクロール化しているため、オートマウスは暴発しません */
+        <&zip_temp_layer 4 1000>,
+        
+        /* 5. スクロール時の軸調整と速度量（スクロール信号になった時だけ自動で発動します） */
+        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
+        <&zip_scroll_scaler 1 2>;
 };
