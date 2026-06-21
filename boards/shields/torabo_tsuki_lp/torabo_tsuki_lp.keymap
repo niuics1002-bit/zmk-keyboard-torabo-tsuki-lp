@@ -1,12 +1,12 @@
 #include "../../../config/keymap.keymap"
 
 / {
-    /* 【確定正解】レイヤー5（SCROLL_layer）の時だけ、ハブから移動イベントを完全に奪い取ってスクロールにする */
+    /* レイヤー5（SCROLL_layer）の時だけ、ハブから移動イベントを横取りしてスクロールにすり替える */
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 左右どちらのビルド環境でも100%確実に解釈されるグローバルラベルを指定 */
+        /* 共通ハブをターゲットに指定 */
         device = <&pointing_listener>;
         
         layers = <5>; // レイヤー5のときだけ発動
@@ -14,19 +14,22 @@
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* 通常のマウス移動出力をこのレイヤーの間だけ【完全にミュート（遮断）】する */
+        /* 通常のマウス移動出力をこのレイヤーの間だけ完全にミュート（ブロック）する */
         behavior; 
 
         input-processors = 
+            /* 1. XY軸をスワップ（上下左右の回転方向をホイールに適合させる） */
             <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
+            
+            /* 2. 移動イベントをスクロール（ホイール）イベントに変換 */
             <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_scroll_scaler 1 2>;
+            
+            /* 3. 【調整】スクロール量を大幅に強化（第一引数を 1 -> 20 に変更して感度を20倍に） */
+            <&zip_scroll_scaler 20 1>;
     };
 };
 
-/* 大元のポインティングリスナー（通常移動とオートマウス専用に分離） */
+/* 大元のポインティングリスナー（通常移動とオートマウス専用） */
 &pointing_listener {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        <&zip_temp_layer 4 1000>;
