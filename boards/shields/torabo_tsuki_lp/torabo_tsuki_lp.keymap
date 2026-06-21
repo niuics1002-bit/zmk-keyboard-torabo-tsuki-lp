@@ -5,18 +5,14 @@
         /* 1. トラックボールの基本軸調整 */
         <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
         
-        /* 2. オートマウス（通常時に動かすとレイヤー4へスイッチ） */
+        /* 2. オートマウス（通常時に転がすと1000msの間レイヤー4へスイッチ） */
         <&zip_temp_layer 4 1000>,
 
-        /* 3. 【解決の鍵】レイヤー5（SCROLL_layer）の時だけ、移動をスクロールに安全にマッピングする */
-        <&zip_xy_to_scroll_mapper>,
+        /* 3. 【本当の解決策】レイヤー5（SCROLL_layer）のときだけ、このマッパーを有効にする */
+        /* ZMK規約: <&ノード名 適用レイヤー> として引数をバインド */
+        <&zip_xy_to_scroll_mapper 5>,
         
-        /* 4. スクロール時の軸調整と速度量 */
+        /* 4. スクロール時の軸調整と速度量（スクロールモード時のみ自動で適用されます） */
         <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
         <&zip_scroll_scaler 1 2>;
-};
-
-/* 5. マッパー単体に対して「レイヤー5」のプロパティを外側から安全に上書き注入する */
-&zip_xy_to_scroll_mapper {
-    layers = <5>;
 };
