@@ -9,6 +9,7 @@
     /* 【新設】レイヤー5の時だけ、トラックボールの動きをスクロール（ホイール信号）に変換 */
     scroller {
         layers = <5>;
+        /* 【ここを修正】 引数全体を括弧で正しくセパレートします */
         input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 (-1) 2>;
     };
 };
