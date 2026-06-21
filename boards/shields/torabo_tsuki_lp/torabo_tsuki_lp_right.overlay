@@ -2,6 +2,7 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
+/* 大元の通常移動とオートマウスの設定（セミコロンを確実に付与） */
 &pointing_listener {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
                        <&zip_temp_layer 4 1000>;
