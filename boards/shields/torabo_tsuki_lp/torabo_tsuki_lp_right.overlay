@@ -30,3 +30,31 @@
     col-offset = <7>;
 };
 
+/ {
+    /* 右手ビルド時のみ読み込まれる、レイヤー5専用の独立したスクロールリスナー */
+    trackball_scroller {
+        compatible = "zmk,input-behavior-listener";
+        status = "okay";
+        
+        /* 【確定】スニペットが定義する物理センサーの正式なラベル名から直接生イベントを奪う */
+        device = <&pointing_device>;
+        
+        layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
+        evt-type = <INPUT_EV_REL>;
+        x-code = <INPUT_REL_X>;
+        y-code = <INPUT_REL_Y>;
+        
+        /* レイヤー5の間だけ、大元の通常マウス移動を完全に隠蔽（遮断）する */
+        behavior; 
+
+        input-processors = 
+            /* 1. XY軸をスワップ（上下左右の回転方向をホイールに適合させる） */
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
+            
+            /* 2. 移動イベントをスクロール（ホイール）イベントに変換 */
+            <&zip_xy_to_scroll_mapper>,
+            
+            /* 3. スクロール量を十分に確保（感度調整） */
+            <&zip_scroll_scaler 20 1>;
+    };
+};
