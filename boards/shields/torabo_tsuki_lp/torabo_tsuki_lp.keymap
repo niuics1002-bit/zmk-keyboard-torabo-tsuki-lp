@@ -1,9 +1,7 @@
 #include "../../../config/keymap.keymap"
 
+/* 通常移動とオートマウス（レイヤー4）の設定 */
 &pointing_listener {
-    input-processors = 
-        /* トラックボールの基本軸調整 */
-        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-        
-        /* オートマウス（通常時に動かすとレイヤー4へ1秒間スイッチ） */
-        <&zip_temp_layer 4 1000>;
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_temp_layer 4 1000>;
+}; // ← このセミコロンを確実に記述してください
