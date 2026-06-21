@@ -29,3 +29,28 @@
 &size_l_transform {
     col-offset = <7>;
 };
+/* ファイルの最下部に追記 */
+/ {
+    trackball_scroller {
+        compatible = "zmk,input-behavior-listener";
+        status = "okay";
+        
+        /* 右手側に確実に存在する物理センサーを直接ターゲットにする */
+        device = <&pointing_device>;
+        
+        layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
+        evt-type = <INPUT_EV_REL>;
+        x-code = <INPUT_REL_X>;
+        y-code = <INPUT_REL_Y>;
+        
+        /* 大元の通常カーソル移動をミュートして、スクロールにすり替える */
+        behavior; 
+
+        input-processors = 
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
+            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_scroll_scaler 1 2>;
+    };
+};
