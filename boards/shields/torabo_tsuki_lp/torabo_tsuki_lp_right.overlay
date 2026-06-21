@@ -29,14 +29,15 @@
 &size_l_transform {
     col-offset = <7>;
 };
+
 / {
     /* 右手ビルド時のみ読み込まれる、レイヤー5専用の独立したスクロールリスナー */
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 確実に存在する共通リスナーから直接イベントを引っ張る */
-        device = <&pointing_listener>;
+        /* 【重要】ハブではなく、右手の物理センサーから生の信号を直接引き抜く */
+        device = <&trackball>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
         evt-type = <INPUT_EV_REL>;
