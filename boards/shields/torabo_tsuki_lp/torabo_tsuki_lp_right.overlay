@@ -2,10 +2,14 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-/* 大元の通常移動とオートマウスの設定 */
+/* 大元のポインティングリスナー */
 &pointing_listener {
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_temp_layer 4 1000>;
+    input-processors = 
+        /* 1. 基本の軸調整 */
+        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+        
+        /* 2. 【超重要】レイヤー5（スクロール）にいる間は、この通常移動とオートマウスの処理を完全に「パス（無視）」させる */
+        <&zip_temp_layer 4 1000>;
 };
 
 &zip_temp_layer {
@@ -28,22 +32,22 @@
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 【確定】オートマウスの入っているハブの手前（物理センサー）から直接イベントを横取りする */
-        device = <&pointing_device>;
+        /* 確実に存在する共通ハブをターゲットに指定 */
+        device = <&pointing_listener>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* レイヤー5の間だけ、通常のマウス移動・オートマウスへの透過を完全にシャットアウトする */
+        /* レイヤー5の間だけ、大元の通常移動イベントを完全に隠蔽（上書き）する */
         behavior; 
 
         input-processors = 
             /* 1. 移動をスクロール（ホイール）イベントにマッピング */
             <&zip_xy_to_scroll_mapper>, 
             
-            /* 2. スクロール変化量の調整（30倍） */
+            /* 2. スクロール変化量を大幅に強化（30倍） */
             <&zip_scroll_scaler 30 1>;
     };
 };
