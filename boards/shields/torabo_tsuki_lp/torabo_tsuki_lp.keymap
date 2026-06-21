@@ -1,30 +1,7 @@
 #include "../../../config/keymap.keymap"
 
-/ {
-    /* レイヤー5の時だけコード変換（移動→スクロール）をかける専用のプロセッサを新設 */
-    zip_xy_to_scroll_layer5: zip_xy_to_scroll_layer5 {
-        compatible = "zmk,input-processor-code-mapper";
-        status = "okay";
-        
-        /* エラーを解決するために必要なセル数宣言を追加 */
-        #input-processor-cells = <1>;
-        
-        map = <INPUT_REL_X INPUT_REL_HWHEEL>, <INPUT_REL_Y INPUT_REL_WHEEL>;
-    };
-};
-
 &pointing_listener {
-    input-processors = 
-        /* 1. 基本のカーソル移動軸反転 */
-        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-        
-        /* 2. オートマウスレイヤー（レイヤー4）の設定 */
-        <&zip_temp_layer 4 1000>,
-
-        /* 3. 新設マッパーを「レイヤー5のみ（引数に5を指定）」で呼び出す */
-        <&zip_xy_to_scroll_layer5 5>,
-        
-        /* 4. スクロール時の軸調整と速度量（レイヤー5の時だけ適用されます） */
-        <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
-        <&zip_scroll_scaler 1 2>;
+    /* 通常移動とオートマウス（レイヤー4）のみの正常な設定 */
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_temp_layer 4 1000>;
 };
