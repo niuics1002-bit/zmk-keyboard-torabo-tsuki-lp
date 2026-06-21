@@ -29,3 +29,28 @@
 &size_l_transform {
     col-offset = <7>;
 };
+/ {
+    /* 右手ビルド時のみ読み込まれる、レイヤー5専用の独立したスクロールリスナー */
+    trackball_scroller {
+        compatible = "zmk,input-behavior-listener";
+        status = "okay";
+        
+        /* 確実に存在する共通リスナーから直接イベントを引っ張る */
+        device = <&pointing_listener>;
+        
+        layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
+        evt-type = <INPUT_EV_REL>;
+        x-code = <INPUT_REL_X>;
+        y-code = <INPUT_REL_Y>;
+        
+        /* レイヤー5の間だけ、大元の通常マウス移動を完全に隠蔽（ミュート）する */
+        behavior; 
+
+        input-processors = 
+            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
+            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_scroll_scaler 1 2>;
+    };
+};
