@@ -2,14 +2,10 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
-/* 大元のポインティングリスナー */
+/* 大元の通常移動とオートマウスの設定 */
 &pointing_listener {
-    input-processors = 
-        /* 1. 基本の軸調整 */
-        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-        
-        /* 2. 【超重要】レイヤー5（スクロール）にいる間は、この通常移動とオートマウスの処理を完全に「パス（無視）」させる */
-        <&zip_temp_layer 4 1000>;
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+                       <&zip_temp_layer 4 1000>;
 };
 
 &zip_temp_layer {
@@ -27,12 +23,19 @@
 &size_l_transform { col-offset = <7>; };
 
 / {
+    /* 1. 【新設】レイヤー5の時だけ、イベントを安全にスクロール信号にすり替える専用プロセッサ */
+    scroll_profile: scroll_profile {
+        compatible = "zmk,input-processor-custom";
+        #input-processor-cells = <0>;
+        processor-behavior = <&zip_xy_to_scroll_mapper>;
+    };
+
     /* 右手側だけで動作する、レイヤー5専用の独立したスクロール割り込みリスナー */
     trackball_scroller {
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 確実に存在する共通ハブをターゲットに指定 */
+        /* 大元のリスナーハブを指定 */
         device = <&pointing_listener>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
@@ -40,12 +43,12 @@
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* レイヤー5の間だけ、大元の通常移動イベントを完全に隠蔽（上書き）する */
+        /* レイヤー5の間だけ、大元の通常マウス移動イベントを完全に隠蔽（上書き）する */
         behavior; 
 
         input-processors = 
-            /* 1. 移動をスクロール（ホイール）イベントにマッピング */
-            <&zip_xy_to_scroll_mapper>, 
+            /* 1. 先ほど定義したスクロールプロファイルを実行 */
+            <&scroll_profile>,
             
             /* 2. スクロール変化量を大幅に強化（30倍） */
             <&zip_scroll_scaler 30 1>;
