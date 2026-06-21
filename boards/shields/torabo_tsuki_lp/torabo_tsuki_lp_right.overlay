@@ -28,15 +28,15 @@
         compatible = "zmk,input-behavior-listener";
         status = "okay";
         
-        /* 大元のポインティングリスナーをデバイスに指定 */
-        device = <&pointing_listener>;
+        /* 【重要】ハブではなく、中央（Split-Central）へ飛んでくる生入力（&input_split）を直接奪う */
+        device = <&input_split>;
         
         layers = <5>; // レイヤー5（SCROLL_layer）の時だけ発動
         evt-type = <INPUT_EV_REL>;
         x-code = <INPUT_REL_X>;
         y-code = <INPUT_REL_Y>;
         
-        /* レイヤー5の間だけ、通常のポインティング移動を完全にブロック（ミュート）する */
+        /* レイヤー5の間だけ、通常マウス移動へのイベント透過を完全にシャットアウトする */
         behavior; 
 
         input-processors = 
@@ -46,7 +46,7 @@
             /* 2. 移動をスクロール（ホイール）イベントにマッピング */
             <&zip_xy_to_scroll_mapper>, 
             
-            /* 3. スクロール変化量の調整（以前少なかった反応を20倍に強化） */
+            /* 3. スクロール変化量の調整（感度を20倍に強化） */
             <&zip_scroll_scaler 20 1>;
     };
 };
