@@ -1,36 +1,9 @@
 #include "../../../config/keymap.keymap"
 
-/ {
-    /* レイヤー5（SCROLL_layer）の時だけ、ハブから移動イベントを横取りしてスクロールにすり替える */
-    trackball_scroller {
-        compatible = "zmk,input-behavior-listener";
-        status = "okay";
-        
-        /* 共通ハブをターゲットに指定 */
-        device = <&pointing_listener>;
-        
-        layers = <5>; // レイヤー5のときだけ発動
-        evt-type = <INPUT_EV_REL>;
-        x-code = <INPUT_REL_X>;
-        y-code = <INPUT_REL_Y>;
-        
-        /* 通常のマウス移動出力をこのレイヤーの間だけ完全にミュート（ブロック）する */
-        behavior; 
-
-        input-processors = 
-            /* 1. XY軸をスワップ（上下左右の回転方向をホイールに適合させる） */
-            <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,
-            
-            /* 2. 移動イベントをスクロール（ホイール）イベントに変換 */
-            <&zip_xy_to_scroll_mapper>,
-            
-            /* 3. 【調整】スクロール量を大幅に強化（第一引数を 1 -> 20 に変更して感度を20倍に） */
-            <&zip_scroll_scaler 20 1>;
-    };
-};
-
-/* 大元のポインティングリスナー（通常移動とオートマウス専用） */
 &pointing_listener {
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_temp_layer 4 1000>;
-};
+    input-processors = 
+        /* トラックボールの基本軸調整 */
+        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
+        
+        /* オートマウス（通常時に動かすとレイヤー4へ1秒間スイッチ） */
+        <&zip_temp_layer 4 1000>;
