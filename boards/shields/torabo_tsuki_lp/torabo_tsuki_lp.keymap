@@ -1,13 +1,13 @@
 #include "../../../config/keymap.keymap"
 
 / {
-    /* 独自の新設マッパーノード（仕様通りの必須プロパティを完全網羅） */
+    /* 独自の新設マッパーノード */
     my_scroll_mapper: my_scroll_mapper {
         compatible = "zmk,input-processor-code-mapper";
         #input-processor-cells = <0>;
         
-        /* エラーを解決するための必須プロパティを追加 */
-        type = "REL";
+        /* 文字列ではなく、正しい数値型（マクロ）に修正 */
+        type = <INPUT_EV_REL>;
         
         /* レイヤー5（SCROLL_layer）の時だけ、移動をスクロールに変換する指定 */
         layers = <5>;
@@ -27,7 +27,7 @@
         /* 3. 独自に用意したレイヤー5限定のマッパーを呼び出す */
         <&my_scroll_mapper>,
         
-        /* 4. スクロール時の軸調整と速度量（スクロールモードになった時だけ自動で適用されます） */
+        /* 4. スクロール時の軸調整と速度量 */
         <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
         <&zip_scroll_scaler 1 2>;
 };
