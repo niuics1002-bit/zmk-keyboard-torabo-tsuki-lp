@@ -1,18 +1,30 @@
 #include "../../../config/keymap.keymap"
 
+/ {
+    /* 独自の新設マッパーノード（特定のレイヤーでのみ動くように「レイヤー制限」をインラインで内包） */
+    my_scroll_mapper: my_scroll_mapper {
+        compatible = "zmk,input-processor-code-mapper";
+        #input-processor-cells = <0>;
+        
+        /* レイヤー5（SCROLL_layer）の時だけ、移動をスクロールに変換する指定 */
+        layers = <5>;
+        
+        map = <INPUT_REL_X INPUT_REL_HWHEEL>, <INPUT_REL_Y INPUT_REL_WHEEL>;
+    };
+};
+
 &pointing_listener {
     input-processors = 
         /* 1. トラックボールの基本軸調整 */
         <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
         
-        /* 2. オートマウス（通常時に転がすと1000msの間レイヤー4へスイッチ） */
+        /* 2. オートマウス（通常時に動かすとレイヤー4へ1秒間スイッチ） */
         <&zip_temp_layer 4 1000>,
 
-        /* 3. 【正解】レイヤー5（SCROLL_layer）のときだけ、移動をスクロールに変換する */
-        /* 引数を受け取れる正しいレイヤー限定版マッパーを指定します */
-        <&zip_xy_to_scroll_layer_mapper 5>,
+        /* 3. 【今回の正解】独自に用意したレイヤー5限定のマッパーを呼び出す */
+        <&my_scroll_mapper>,
         
-        /* 4. スクロール時の軸調整と速度量（スクロールモード時のみ自動で適用されます） */
+        /* 4. スクロール時の軸調整と速度量（スクロールモードになった時だけ自動で適用されます） */
         <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
         <&zip_scroll_scaler 1 2>;
 };
