@@ -3,17 +3,16 @@
 #include <dt-bindings/zmk/input_transform.h>
 
 &pointing_listener {
+    /* 通常時（レイヤー5以外）の処理 */
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+
+    /* レイヤー5の時だけトラックボールの動きをスクロール（ホイール）に変換する設定 */
+    scroller {
+        layers = <5>;
+        input-processors = <&zip_xy_to_scroll_mapper>;
+    };
 };
 
-&size_s_transform {
-    col-offset = <7>;
-};
-
-&size_m_transform {
-    col-offset = <7>;
-};
-
-&size_l_transform {
-    col-offset = <7>;
-};
+&size_s_transform { col-offset = <7>; };
+&size_m_transform { col-offset = <7>; };
+&size_l_transform { col-offset = <7>; };
