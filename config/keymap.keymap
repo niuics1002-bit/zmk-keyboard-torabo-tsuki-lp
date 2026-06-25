@@ -22,6 +22,16 @@
             bindings = <&mkp MB2>;
             key-positions = <34 35>;
         };
+
+        kigou {
+            bindings = <&M1>;
+            key-positions = <19 20>;
+        };
+
+        vlookup {
+            bindings = <&M2>;
+            key-positions = <48 47>;
+        };
     };
 
     macros {
@@ -37,6 +47,13 @@
             #binding-cells = <0>;
             bindings = <&kp INT_MUHENKAN &kp KP_NUMBER_0 &kp KP_NUMBER_1 &kp KP_NUMBER_8 &kp KP_NUMBER_7 &kp KP_NUMBER_5 &kp KP_NUMBER_7 &kp KP_NUMBER_4 &kp KP_NUMBER_2 &kp INT_HENKAN>;
             label = "M0";
+        };
+
+        M2: M2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp INTERNATIONAL_5 &kp EQUAL &kp V &kp L &kp O &kp O &kp K &kp U &kp P &kp LEFT_PARENTHESIS>;
+            label = "M2";
         };
     };
 
