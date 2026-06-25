@@ -3,5 +3,5 @@
 /* 通常移動とオートマウス（レイヤー4）の設定 */
 &pointing_listener {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-                       <&zip_temp_layer 4 1000>;
+                       <&zip_temp_layer 4 10000>;
 }; // ← このセミコロンを確実に記述してください
