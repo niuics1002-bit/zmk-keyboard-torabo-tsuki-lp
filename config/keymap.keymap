@@ -64,14 +64,14 @@
         M3: copy {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp RCTRL &kp C>;
+            bindings = <&kp LC(C)>;
             label = "COPY";
         };
 
         M4: paste {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp RCTRL &kp V>;
+            bindings = <&kp LC(V)>;
             label = "PASTE";
         };
     };
