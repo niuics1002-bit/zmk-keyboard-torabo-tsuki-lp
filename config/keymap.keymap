@@ -61,14 +61,14 @@
             label = "M2";
         };
 
-        copy: copy {
+        M3: copy {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp RCTRL &kp C>;
             label = "COPY";
         };
 
-        paste: paste {
+        M4: paste {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp RCTRL &kp V>;
