@@ -101,11 +101,11 @@
 
         layer_2 {
             bindings = <
-&trans  &trans       &trans    &trans         &trans            &trans                                               &trans         &trans                 &trans                       &trans                     &trans               &trans
-&trans  &kp PAGE_UP  &none     &kp UP         &kp DEL           &kp PAGE_DOWN                                        &kp PLUS       &kp KP_NUMBER_7        &kp KP_NUMBER_8              &kp KP_NUMBER_9            &kp DQT              &trans
-&trans  &kp HOME     &kp LEFT  &kp DOWN       &kp RIGHT         &kp END          &trans             &trans           &kp KP_MINUS   &mt RCTRL KP_NUMBER_4  &mt RIGHT_SHIFT KP_NUMBER_5  &mt RIGHT_ALT KP_NUMBER_6  &mt RIGHT_GUI EQUAL  &trans
-&trans  &none        &none     &kp LESS_THAN  &kp GREATER_THAN  &none            &kp C_MUTE         &kp KP_MULTIPLY  &kp KP_DIVIDE  &kp KP_NUMBER_1        &kp KP_NUMBER_2              &kp KP_NUMBER_3            &kp COLON            &trans
-&trans  &none        &none     &none          &none             &kp C_VOLUME_UP  &kp C_VOLUME_DOWN  &kp KP_NUMBER_0  &kp ENTER      &trans                 &trans                       &kp DOT                    &kp BACKSPACE        &trans
+&trans  &trans       &trans    &trans    &trans     &trans                                               &trans         &trans                 &trans                       &trans                     &trans               &trans
+&trans  &kp PAGE_UP  &none     &kp UP    &kp DEL    &kp PAGE_DOWN                                        &kp PLUS       &kp KP_NUMBER_7        &kp KP_NUMBER_8              &kp KP_NUMBER_9            &kp DQT              &trans
+&trans  &kp HOME     &kp LEFT  &kp DOWN  &kp RIGHT  &kp END          &trans             &trans           &kp KP_MINUS   &mt RCTRL KP_NUMBER_4  &mt RIGHT_SHIFT KP_NUMBER_5  &mt RIGHT_ALT KP_NUMBER_6  &mt RIGHT_GUI EQUAL  &trans
+&trans  &none        &none     &M3       &M4        &none            &kp C_MUTE         &kp KP_MULTIPLY  &kp KP_DIVIDE  &kp KP_NUMBER_1        &kp KP_NUMBER_2              &kp KP_NUMBER_3            &kp COLON            &trans
+&trans  &none        &none     &none     &none      &kp C_VOLUME_UP  &kp C_VOLUME_DOWN  &kp KP_NUMBER_0  &kp ENTER      &trans                 &trans                       &kp DOT                    &kp BACKSPACE        &trans
             >;
         };
 
