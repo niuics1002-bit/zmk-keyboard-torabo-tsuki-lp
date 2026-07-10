@@ -37,6 +37,11 @@
             bindings = <&M2>;
             key-positions = <48 47>;
         };
+
+        layer {
+            bindings = <&lt 7 A>;
+            key-positions = <59 60>;
+        };
     };
 
     macros {
@@ -146,6 +151,16 @@
 &trans  &trans  &none   &none   &none       &none           &trans  &trans  &none         &none         &none         &none         &none         &trans
 &trans  &trans  &none   &none   &none       &none           &none   &none   &none         &none         &none         &none         &none         &trans
 &trans  &trans  &none   &none   &none       &none           &none   &none   &none         &trans        &trans        &bt BT_NXT    &bt BT_PRV    &trans
+            >;
+        };
+
+        layer_7 {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &none   &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &M0     &trans
             >;
         };
     };
