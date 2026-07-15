@@ -48,7 +48,7 @@
         M1: M1 {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp LEFT>;
+            bindings = <&kp INT5 &kp LEFT_PARENTHESIS &kp RIGHT_PARENTHESIS &kp LEFT &kp INT4>;
             label = "M1";
         };
 
