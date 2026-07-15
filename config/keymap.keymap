@@ -42,6 +42,11 @@
             bindings = <&lt 7 A>;
             key-positions = <59 60>;
         };
+
+        test {
+            bindings = <&none>;
+            key-positions = <19 21>;
+        };
     };
 
     macros {
