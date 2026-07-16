@@ -39,7 +39,7 @@
         };
 
         layer {
-            bindings = <&lt 7 A>;
+            bindings = <&lt 7 RCTRL>;
             key-positions = <59 60>;
         };
 
@@ -161,11 +161,11 @@
 
         layer_7 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &none   &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &M0     &trans
+&trans  &trans  &trans  &trans  &trans         &trans                  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &kp LC(LS(R))  &trans                  &trans  &trans  &trans  &trans  &none   &trans
+&trans  &trans  &trans  &trans  &trans         &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans         &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans         &trans  &trans  &trans  &trans  &trans  &trans  &trans  &M0     &trans
             >;
         };
     };
