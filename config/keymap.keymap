@@ -39,7 +39,7 @@
         };
 
         layer {
-            bindings = <&lt 7 RCTRL>;
+            bindings = <&lt 7 DEL>;
             key-positions = <59 60>;
         };
 
