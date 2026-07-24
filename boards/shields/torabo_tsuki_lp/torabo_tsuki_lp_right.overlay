@@ -17,7 +17,7 @@
     excluded-positions = <
         33 // J
         35 // l
-        48 // ,
+        45 // int5
         49 // .
     >;
 };
