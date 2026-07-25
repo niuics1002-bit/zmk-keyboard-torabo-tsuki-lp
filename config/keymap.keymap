@@ -19,13 +19,13 @@
             layers = <2>;
         };
 
-        Lclick {
-            bindings = <&mkp MB1>;
+        desktopright {
+            bindings = <&kp RG(RC(RIGHT))>;
             key-positions = <33 34>;
         };
 
-        Rclick {
-            bindings = <&mkp MB2>;
+        desktopleft {
+            bindings = <&kp RG(RC(LEFT))>;
             key-positions = <34 35>;
         };
 
@@ -46,7 +46,7 @@
 
         test {
             bindings = <&none>;
-            key-positions = <45 46>;
+            key-positions = <45 64>;
         };
     };
 
