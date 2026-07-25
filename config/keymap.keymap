@@ -21,12 +21,12 @@
 
         desktopright {
             bindings = <&kp RG(RC(RIGHT))>;
-            key-positions = <33 34>;
+            key-positions = <34 35>;
         };
 
         desktopleft {
             bindings = <&kp RG(RC(LEFT))>;
-            key-positions = <34 35>;
+            key-positions = <34 33>;
         };
 
         kigou {
