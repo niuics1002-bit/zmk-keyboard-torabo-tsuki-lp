@@ -13,12 +13,6 @@
     combos {
         compatible = "zmk,combos";
 
-        bt_clear {
-            bindings = <&bt BT_CLR>;
-            key-positions = <28 29>;
-            layers = <2>;
-        };
-
         desktopright {
             bindings = <&kp RG(RC(RIGHT))>;
             key-positions = <34 35>;
