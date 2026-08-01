@@ -38,9 +38,9 @@
             key-positions = <59 60>;
         };
 
-        test {
-            bindings = <&none>;
-            key-positions = <64 21>;
+        rogin {
+            bindings = <&M0>;
+            key-positions = <64 22 36 50>;
         };
     };
 
