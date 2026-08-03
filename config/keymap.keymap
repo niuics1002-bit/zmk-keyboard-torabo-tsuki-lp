@@ -42,6 +42,16 @@
             bindings = <&M0>;
             key-positions = <64 36 50>;
         };
+
+        WINDOWLEFT {
+            bindings = <&kp LG(LEFT_ARROW)>;
+            key-positions = <26 27>;
+        };
+
+        WINDOWRIGHT {
+            bindings = <&kp LG(RIGHT)>;
+            key-positions = <28 27>;
+        };
     };
 
     macros {
