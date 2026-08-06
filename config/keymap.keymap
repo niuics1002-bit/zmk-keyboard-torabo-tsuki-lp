@@ -40,17 +40,17 @@
 
         rogin {
             bindings = <&M0>;
-            key-positions = <64 36 50>;
+            key-positions = <60 33 34 35 36>;
         };
 
         WINDOWLEFT {
             bindings = <&kp LG(LEFT_ARROW)>;
-            key-positions = <26 27>;
+            key-positions = <14 15>;
         };
 
         WINDOWRIGHT {
             bindings = <&kp LG(RIGHT)>;
-            key-positions = <28 27>;
+            key-positions = <15 16>;
         };
     };
 
