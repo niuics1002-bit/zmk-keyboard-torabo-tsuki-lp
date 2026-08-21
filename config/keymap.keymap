@@ -16,11 +16,13 @@
         desktopright {
             bindings = <&kp RG(RC(RIGHT))>;
             key-positions = <34 35>;
+            timeout-ms = <30>;
         };
 
         desktopleft {
             bindings = <&kp RG(RC(LEFT))>;
             key-positions = <34 33>;
+            timeout-ms = <30>;
         };
 
         kigou {
@@ -46,11 +48,13 @@
         WINDOWLEFT {
             bindings = <&kp LG(LEFT_ARROW)>;
             key-positions = <14 15>;
+            timeout-ms = <30>;
         };
 
         WINDOWRIGHT {
             bindings = <&kp LG(RIGHT)>;
             key-positions = <15 16>;
+            timeout-ms = <30>;
         };
     };
 
