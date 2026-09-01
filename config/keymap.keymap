@@ -15,13 +15,13 @@
 
         desktopright {
             bindings = <&kp RG(RC(RIGHT))>;
-            key-positions = <34 35>;
+            key-positions = <35 36>;
             timeout-ms = <30>;
         };
 
         desktopleft {
             bindings = <&kp RG(RC(LEFT))>;
-            key-positions = <34 33>;
+            key-positions = <33 32>;
             timeout-ms = <30>;
         };
 
@@ -55,6 +55,16 @@
             bindings = <&kp LG(RIGHT)>;
             key-positions = <15 16>;
             timeout-ms = <30>;
+        };
+
+        copy {
+            bindings = <&kp LC(C)>;
+            key-positions = <33 34>;
+        };
+
+        paste {
+            bindings = <&kp RC(RS(V))>;
+            key-positions = <34 35>;
         };
     };
 
