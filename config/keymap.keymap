@@ -131,7 +131,7 @@
 &trans  &kp EXCL                       &kp AT_SIGN                     &kp HASH             &kp INT_YEN       &kp PRCNT                                      &kp CARET  &kp AMPS          &kp UP           &kp TILDE            &kp MINUS          &trans
 &trans  &mt LEFT_GUI LEFT_PARENTHESIS  &mt LEFT_ALT RIGHT_PARENTHESIS  &mt LEFT_SHIFT LBKT  &mt LCTRL RBKT    &none            &trans             &trans     &kp HOME   &mt RCTRL LEFT    &mt RSHIFT DOWN  &mt RIGHT_ALT RIGHT  &mt RIGHT_GUI END  &trans
 &trans  &none                          &none                           &kp LESS_THAN        &kp GREATER_THAN  &none            &none              &kp PSCRN  &none      &kp RG(UP_ARROW)  &none            &kp RG(DOWN_ARROW)   &none              &trans
-&trans  &M5                            &none                           &none                &none             &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &none      &none      &trans            &trans           &none                &none              &trans
+&trans  &M5                            &none                           &none                &none             &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &none      &none      &trans            &trans           &none                &kp RA(ESCAPE)     &trans
             >;
         };
 
