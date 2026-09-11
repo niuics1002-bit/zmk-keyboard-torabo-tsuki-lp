@@ -66,6 +66,11 @@
             bindings = <&kp RC(RS(V))>;
             key-positions = <34 35>;
         };
+
+        delete {
+            bindings = <&kp RC(KP_MINUS)>;
+            key-positions = <48 49>;
+        };
     };
 
     macros {
