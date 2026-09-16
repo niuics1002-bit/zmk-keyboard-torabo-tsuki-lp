@@ -133,7 +133,7 @@
 &trans  &kp Q           &kp W           &kp E             &kp R        &kp T                                            &kp Y        &mt RCTRL U  &mt RIGHT_SHIFT I  &mt RIGHT_WIN O  &lt 5 P      &trans
 &trans  &mt LEFT_GUI A  &mt LEFT_ALT S  &mt LEFT_SHIFT D  &mt LCTRL F  &kp G      &trans            &trans              &kp H        &mt RCTRL J  &mt RIGHT_SHIFT K  &mt RIGHT_ALT L  &lt 5 SLASH  &trans
 &trans  &kp Z           &kp X           &kp C             &kp V        &kp B      &lt 1 INT_HENKAN  &lt 2 INT_MUHENKAN  &kp N        &kp M        &kp COMMA          &kp DOT          &kp SEMI     &trans
-&trans  &kp ESCAPE      &none           &trans            &lt 6 DEL    &lt 3 TAB  &lt 2 SPACE       &lt 1 BACKSPACE     &lt 3 ENTER  &trans       &trans             &kp UNDERSCORE   &lt 1 MINUS  &trans
+&trans  &kp ESCAPE      &none           &M0               &lt 6 DEL    &lt 3 TAB  &lt 2 SPACE       &lt 1 BACKSPACE     &lt 3 ENTER  &trans       &trans             &kp UNDERSCORE   &lt 1 MINUS  &trans
             >;
         };
 
@@ -150,7 +150,7 @@
         layer_2 {
             bindings = <
 &trans  &trans           &trans        &trans    &trans     &trans                                             &trans           &trans                 &trans                       &trans                     &trans               &trans
-&trans  &kp PAGE_UP      &none         &kp UP    &kp DEL    &kp PAGE_DOWN                                      &kp PLUS         &kp KP_NUMBER_7        &kp KP_NUMBER_8              &kp KP_NUMBER_9            &kp DQT              &trans
+&trans  &kp PAGE_UP      &kp INS       &kp UP    &kp DEL    &kp PAGE_DOWN                                      &kp PLUS         &kp KP_NUMBER_7        &kp KP_NUMBER_8              &kp KP_NUMBER_9            &kp DQT              &trans
 &trans  &kp HOME         &kp LEFT      &kp DOWN  &kp RIGHT  &kp END          &trans             &trans         &kp KP_MINUS     &mt RCTRL KP_NUMBER_4  &mt RIGHT_SHIFT KP_NUMBER_5  &mt RIGHT_ALT KP_NUMBER_6  &mt RIGHT_GUI EQUAL  &trans
 &trans  &kp KP_MULTIPLY  &kp KP_SLASH  &M3       &M4        &none            &kp C_MUTE         &kp KP_DIVIDE  &kp KP_MULTIPLY  &kp KP_NUMBER_1        &kp KP_NUMBER_2              &kp KP_NUMBER_3            &kp COLON            &trans
 &trans  &kp LA(ESC)      &none         &none     &none      &kp C_VOLUME_UP  &kp C_VOLUME_DOWN  &kp BACKSPACE  &kp KP_NUMBER_0  &trans                 &trans                       &kp DOT                    &kp ENTER            &trans
