@@ -17,7 +17,7 @@
     excluded-positions = <
         33 // J
         35 // l
-        60 // ent
+        59 // bs
         64 // -
     >;
 };
