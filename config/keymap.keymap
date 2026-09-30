@@ -217,6 +217,7 @@
     };
 };
 
+/* --- 以前から入っている末尾の設定 --- */
 / {
     sensors {
         compatible = "zmk,keymap-sensors";
@@ -225,12 +226,30 @@
     };
 };
 
-&hires_dial_encoder { sensor = <&hires_dial>; };
-&hires_dial_scroll { sensor = <&hires_dial>; };
-&hires_dial_radial_controller { sensor = <&hires_dial>; };
+&hires_dial_encoder {
+    sensor = <&hires_dial>;
+};
 
-&{/keymap/layer_0} { sensor-bindings = <&hires_dial_scroll 1 1>; };
-&{/keymap/layer_1} { sensor-bindings = <&hires_dial_radial_controller 4 1>; };
-&{/keymap/layer_2} { sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>; };
-&{/keymap/layer_3} { sensor-bindings = <&hires_dial_scroll 1 1 (-1) 0>; };
-&{/keymap/layer_5} { sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>; };
+&hires_dial_scroll {
+    sensor = <&hires_dial>;
+};
+
+&hires_dial_radial_controller {
+    sensor = <&hires_dial>;
+};
+
+/* --- ここから追加 --- */
+/* レイヤー0（スクロール） */
+&{/keymap/layer_0} {
+    sensor-bindings = <&hires_dial_scroll 1 1>;
+};
+
+/* レイヤー1（音量調整） */
+&{/keymap/layer_1} {
+    sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>;
+};
+
+/* レイヤー3（Surface Dial） */
+&{/keymap/layer_3} {
+    sensor-bindings = <&hires_dial_radial_controller 4 1>;
+};
