@@ -216,6 +216,7 @@
         };
     };
 };
+
 / {
     sensors {
         compatible = "zmk,keymap-sensors";
@@ -224,26 +225,13 @@
     };
 };
 
-&hires_dial_encoder {
-    sensor = <&hires_dial>;
-};
+&hires_dial_encoder { sensor = <&hires_dial>; };
+&hires_dial_scroll { sensor = <&hires_dial>; };
+&hires_dial_radial_controller { sensor = <&hires_dial>; };
 
-&hires_dial_scroll {
-    sensor = <&hires_dial>;
-};
-
-&hires_dial_radial_controller {
-    sensor = <&hires_dial>;
-};
-
-/* デフォルトレイヤーでダイヤルを回したときにスクロールさせる設定 */
+/* レイヤー0（デフォルト：スクロール） */
 &{/keymap/layer_0} {
     sensor-bindings = <&hires_dial_scroll 1 1>;
-};
-
-/* レイヤー5（音量調整） */
-&{/keymap/layer_5} {
-    sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>;
 };
 
 /* レイヤー1（Surface Dial） */
@@ -251,12 +239,17 @@
     sensor-bindings = <&hires_dial_radial_controller 4 1>;
 };
 
+/* レイヤー2（タブ切り替え） */
+&{/keymap/layer_2} {
+    sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>;
+};
+
 /* レイヤー3（横スクロール） */
 &{/keymap/layer_3} {
     sensor-bindings = <&hires_dial_scroll 1 1 (-1) 0>;
 };
 
-/* レイヤー2 (タブ切り替え) */
-&{/keymap/layer_2} {
-    sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>;
+/* レイヤー5（音量調整） */
+&{/keymap/layer_5} {
+    sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>;
 };
