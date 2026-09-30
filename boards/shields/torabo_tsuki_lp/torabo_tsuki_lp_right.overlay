@@ -6,7 +6,7 @@
     /* 通常時の入力プロセッサ：反転処理 ＋ オートマウスレイヤー（レイヤー4）の発動設定 */
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>, <&zip_temp_layer 4 10000>;
 
-    /* 【新設】レイヤー5の時だけ、トラックボールの動きをスクロール（ホイール信号）に変換 */
+    /* レイヤー5の時だけ、トラックボールの動きをスクロール（ホイール信号）に変換 */
     scroller {
         layers = <5>;
         input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 2>, <&zip_scroll_scaler (-1) 2>;
@@ -26,10 +26,7 @@
 &size_m_transform { col-offset = <7>; };
 &size_l_transform { col-offset = <7>; };
 
-#include "torabo_tsuki_lp.dtsi"
-#include <input/processors.dtsi>
-#include <dt-bindings/zmk/input_transform.h>
-
+/* 右手側ビルドエラー回避用のダミー定義 (status = "disabled") */
 &pinctrl {
     i2c1_default: i2c1_default {
         group1 {
@@ -48,13 +45,10 @@
 };
 
 &i2c1 {
-    status = "okay";
-    pinctrl-0 = <&i2c1_default>;
-    pinctrl-1 = <&i2c1_sleep>;
-    pinctrl-names = "default", "sleep";
+    status = "disabled";
 
     hires_dial: hires_dial@75 {
-        status = "okay";
+        status = "disabled";
         compatible = "sekigon,hires-dial";
         reg = <0x75>;
         res-cpi = <1275>;
