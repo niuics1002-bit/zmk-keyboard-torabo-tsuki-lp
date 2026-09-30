@@ -216,28 +216,6 @@
         };
     };
 };
-
-/* --- 以前から入っている末尾の設定 --- */
-/ {
-    sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&hires_dial>;
-        triggers-per-rotation = <20>;
-    };
-};
-
-&hires_dial_encoder {
-    sensor = <&hires_dial>;
-};
-
-&hires_dial_scroll {
-    sensor = <&hires_dial>;
-};
-
-&hires_dial_radial_controller {
-    sensor = <&hires_dial>;
-};
-
 /* --- 以前から入っている末尾の設定 --- */
 / {
     sensors {
@@ -272,5 +250,5 @@
 
 /* レイヤー3（Surface Dial） */
 &{/keymap/layer_3} {
-    sensor-bindings = <&hires_dial_scroll 1 1 (-1) 0>;
+    sensor-bindings = <&hires_dial_radial_controller 4 1>;
 };
