@@ -250,5 +250,5 @@
 
 /* レイヤー3（Surface Dial） */
 &{/keymap/layer_3} {
-    sensor-bindings = <&hires_dial_scroll 1 1 0 1>;
+    sensor-bindings = <&hires_dial_scroll 1 1 (-1) 0>;
 };
