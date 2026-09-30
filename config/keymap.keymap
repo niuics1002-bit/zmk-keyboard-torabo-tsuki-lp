@@ -246,7 +246,7 @@
 
 /* レイヤー1（tab） */
 &{/keymap/layer_1} {
-    sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>;
+    sensor-bindings = <&hires_dial_radial_controller 4 1>;
 };
 
 /* レイヤー3（horizon scrool） */
