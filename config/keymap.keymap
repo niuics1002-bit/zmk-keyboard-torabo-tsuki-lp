@@ -239,13 +239,11 @@
 
 /* --- ここから追加 --- */
 /* レイヤー0（スクロール） */
-&{/keymap/layer_0} {
-    sensor-bindings = <&hires_dial_scroll 1 1>;
+&{/keymap/layer_0} {sensor-bindings = <&hires_dial_scroll 1 1>;
 };
 
 /* レイヤー1（音量調整） */
-&{/keymap/layer_1} {
-    sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>;
+&{/keymap/layer_1} {sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>;
 };
 
 /* レイヤー3（Surface Dial） */
