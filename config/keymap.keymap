@@ -256,7 +256,7 @@
     sensor-bindings = <&hires_dial_scroll 1 1 (-1) 0>;
 };
 
-/* レイヤー2　タブ切り替え（Ctrl + Tab / Ctrl + Shift + Tab） */
+/* レイヤー2 (タブ切り替え) */
 &{/keymap/layer_2} {
     sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>;
 };
