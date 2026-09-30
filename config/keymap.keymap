@@ -253,8 +253,3 @@
 &{/keymap/layer_2} {
     sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>;
 };
-
-/* レイヤー3（horizon scrool） */
-&{/keymap/layer_3} {
-    sensor-bindings = <&hires_dial_scroll 1 1 (-1) 0>;
-};
