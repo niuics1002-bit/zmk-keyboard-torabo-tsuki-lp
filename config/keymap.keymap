@@ -2,6 +2,7 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <behaviors/hires_dial.dtsi>
 
 &mt {
     tapping-term-ms = <184>;
@@ -214,4 +215,28 @@
             >;
         };
     };
+};
+/ {
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&hires_dial>;
+        triggers-per-rotation = <20>;
+    };
+};
+
+&hires_dial_encoder {
+    sensor = <&hires_dial>;
+};
+
+&hires_dial_scroll {
+    sensor = <&hires_dial>;
+};
+
+&hires_dial_radial_controller {
+    sensor = <&hires_dial>;
+};
+
+/* デフォルトレイヤーでダイヤルを回したときにスクロールさせる設定 */
+&{/keymap/layer_0} {
+    sensor-bindings = <&hires_dial_scroll 1 1>;
 };
