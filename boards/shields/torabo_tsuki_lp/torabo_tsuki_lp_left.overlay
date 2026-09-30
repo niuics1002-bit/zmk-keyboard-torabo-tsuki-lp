@@ -6,11 +6,11 @@
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
 };
 
-&i2c0 {
+&i2c1 {
     status = "okay";
     compatible = "nordic,nrf-twim";
-    pinctrl-0 = <&i2c0_default>;
-    pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-1 = <&i2c1_sleep>;
     pinctrl-names = "default", "sleep";
 
     hires_dial: hires_dial@75 {
