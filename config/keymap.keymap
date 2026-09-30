@@ -249,7 +249,17 @@
     sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>;
 };
 
-/* レイヤー3（Surface Dial） */
+/* レイヤー2（tab） */
+&{/keymap/layer_2} {
+    sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>;
+};
+
+/* レイヤー3（horizon scrool） */
 &{/keymap/layer_3} {
+    sensor-bindings = <&hires_dial_scroll 1 1 (-1) 0>;
+};
+
+/* レイヤー3（Surface Dial） */
+&{/keymap/layer_5} {
     sensor-bindings = <&hires_dial_radial_controller 4 1>;
 };
