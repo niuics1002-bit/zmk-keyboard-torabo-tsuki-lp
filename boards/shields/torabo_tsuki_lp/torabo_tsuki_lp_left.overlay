@@ -22,7 +22,7 @@
 };
 
 &i2c1 {
-    status = "okay";
+    status = "disabled";
     pinctrl-0 = <&i2c1_default>;
     pinctrl-1 = <&i2c1_sleep>;
     pinctrl-names = "default", "sleep";
