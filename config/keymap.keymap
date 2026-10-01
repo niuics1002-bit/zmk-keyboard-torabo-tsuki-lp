@@ -218,6 +218,18 @@
 };
 
 /* --- hires_dial関連は切り分けテストのため一時的に全削除 --- */
+/ {
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&hires_dial>;
+        triggers-per-rotation = <20>;
+    };
+};
+
+&hires_dial_scroll {
+    sensor = <&hires_dial>;
+};
+
 &{/keymap/layer_0} {
     sensor-bindings = <&hires_dial_scroll 1 1>;
 };
