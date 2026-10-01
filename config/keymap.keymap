@@ -218,3 +218,6 @@
 };
 
 /* --- hires_dial関連は切り分けテストのため一時的に全削除 --- */
+&{/keymap/layer_0} {
+    sensor-bindings = <&hires_dial_scroll 1 1>;
+};
