@@ -28,7 +28,7 @@
     pinctrl-names = "default", "sleep";
 
     hires_dial: hires_dial@75 {
-        status = "okay";
+        status = "disabled";
         compatible = "sekigon,hires-dial";
         reg = <0x75>;
         res-cpi = <1275>;
