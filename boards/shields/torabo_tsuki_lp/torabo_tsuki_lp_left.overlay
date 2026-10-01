@@ -5,13 +5,19 @@
 &i2c0 {
     status = "okay";
 
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
+
     hires_dial: hires_dial@75 {
-        status = "okay";
         compatible = "sekigon,hires-dial";
+        status = "okay";
         reg = <0x75>;
+
         res-cpi = <1275>;
         counts-per-revolution = <1275>;
         motion-read-interval-ms = <8>;
+
         motion-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
