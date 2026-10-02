@@ -226,10 +226,10 @@
     };
 };
 
-&hires_dial_scroll {
+&hires_dial_encoder {
     sensor = <&hires_dial>;
 };
 
 &{/keymap/layer_0} {
-    sensor-bindings = <&hires_dial_scroll 1 1>;
-};
+    sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>;
+};ｐ
