@@ -44,10 +44,10 @@
 };
 
 &i2c1 {
-    status = "disabled";
+    status = "okay";
 
     hires_dial: hires_dial@75 {
-        status = "disabled";
+        status = "okay";
         compatible = "sekigon,hires-dial";
         reg = <0x75>;
         res-cpi = <1275>;
