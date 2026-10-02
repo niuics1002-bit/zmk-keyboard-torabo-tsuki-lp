@@ -232,4 +232,4 @@
 
 &{/keymap/layer_0} {
     sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>;
-};ｐ
+};
