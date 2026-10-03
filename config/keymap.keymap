@@ -235,3 +235,4 @@
 &{/keymap/layer_2} { sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>; };
 &{/keymap/layer_3} { sensor-bindings = <&hires_dial_hscroll 1 1>; };
 &{/keymap/SCROLL_layer} { sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>; };
+&{/keymap/layer_1} { sensor-bindings = <&hires_dial_radial_controller 4 1>; };
