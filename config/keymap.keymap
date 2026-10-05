@@ -168,7 +168,7 @@
         layer_3 {
             bindings = <
 &trans  &trans           &trans           &trans           &trans           &trans                                       &trans     &trans                &trans              &trans            &trans          &trans
-&trans  &M7              &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp PLUS                                     &M6        &kp F7                &kp F8              &kp F9            &kp RC(W)       &trans
+&trans  &M7              &none            &none            &none            &none                                        &M6        &kp F7                &kp F8              &kp F9            &kp RC(W)       &trans
 &trans  &M6              &kp LC(LT)       &kp KP_NUMBER_5  &kp LC(GT)       &kp KP_MINUS     &trans             &trans   &kp RC(T)  &mt RIGHT_CONTROL F4  &mt RIGHT_SHIFT F5  &mt RIGHT_ALT F6  &kp RIGHT_GUI   &trans
 &trans  &kp KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp KP_MULTIPLY  &kp KP_DIVIDE      &kp F11  &none      &kp F1                &kp F2              &kp F3            &none           &trans
 &trans  &none            &none            &none            &none            &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &kp F10  &kp F12    &trans                &trans              &none             &kp RA(ESCAPE)  &trans
@@ -218,6 +218,7 @@
 };
 
 /* --- hires_dial関連は切り分けテストのため一時的に全削除 --- */
+
 / {
     sensors {
         compatible = "zmk,keymap-sensors";
@@ -227,12 +228,19 @@
 };
 
 &hires_dial_encoder { sensor = <&hires_dial>; };
+
 &hires_dial_scroll { sensor = <&hires_dial>; };
+
 &hires_dial_hscroll { sensor = <&hires_dial>; };
+
 &hires_dial_radial_controller { sensor = <&hires_dial>; };
 
 &{/keymap/layer_0} { sensor-bindings = <&hires_dial_scroll 1 1>; };
+
 &{/keymap/layer_2} { sensor-bindings = <&hires_dial_encoder LC(TAB) LC(LS(TAB))>; };
+
 &{/keymap/layer_3} { sensor-bindings = <&hires_dial_hscroll 1 1>; };
+
 &{/keymap/SCROLL_layer} { sensor-bindings = <&hires_dial_encoder C_VOL_UP C_VOL_DN>; };
+
 &{/keymap/layer_1} { sensor-bindings = <&hires_dial_radial_controller 4 1>; };
