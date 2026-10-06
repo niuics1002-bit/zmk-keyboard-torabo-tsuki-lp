@@ -72,6 +72,11 @@
             bindings = <&kp RC(KP_MINUS)>;
             key-positions = <48 49>;
         };
+
+        layer6 {
+            bindings = <&lt 6 A>;
+            key-positions = <58 59>;
+        };
     };
 
     macros {
