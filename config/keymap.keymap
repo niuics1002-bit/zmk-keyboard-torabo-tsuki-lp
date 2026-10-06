@@ -235,7 +235,7 @@
 
 &hires_dial_radial_controller { sensor = <&hires_dial>; };
 
-&{/keymap/layer_0} { sensor-bindings = <&hires_dial_radial_controller 2 1>; };
+&{/keymap/layer_0} { sensor-bindings = <&hires_dial_scroll 1 1>; };
 
 &{/keymap/layer_1} { sensor-bindings = <&hires_dial_scroll 1 1>; };
 
