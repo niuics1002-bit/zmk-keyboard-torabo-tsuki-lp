@@ -145,7 +145,7 @@
 &trans  &trans          &trans          &trans            &trans            &trans                                           &trans       &trans       &trans             &trans           &trans       &trans
 &trans  &kp Q           &kp W           &kp E             &kp R             &kp T                                            &kp Y        &mt RCTRL U  &mt RIGHT_SHIFT I  &mt RIGHT_WIN O  &lt 5 P      &trans
 &trans  &mt LEFT_GUI A  &mt LEFT_ALT S  &mt LEFT_SHIFT D  &mt LCTRL F       &kp G      &trans            &trans              &kp H        &mt RCTRL J  &mt RIGHT_SHIFT K  &mt RIGHT_ALT L  &lt 5 SLASH  &trans
-&trans  &kp Z           &kp X           &kp C             &kp V             &kp B      &lt 1 INT_HENKAN  &lt 2 INT_MUHENKAN  &kp N        &kp M        &kp COMMA          &kp DOT          &kp SEMI     &trans
+&trans  &kp Z           &kp X           &kp C             &kp V             &kp B      &lt 1 INT_HENKAN  &lt 7 INT_MUHENKAN  &kp N        &kp M        &kp COMMA          &kp DOT          &kp SEMI     &trans
 &trans  &lt 2 ESCAPE    &none           &M0               &lt 7 INT_HENKAN  &lt 3 TAB  &lt 2 SPACE       &lt 1 BACKSPACE     &lt 3 ENTER  &trans       &trans             &kp UNDERSCORE   &lt 1 MINUS  &trans
             >;
         };
@@ -216,7 +216,7 @@
 &trans  &trans  &kp LA(F4)  &trans           &kp LC(LS(R))      &trans                           &trans             &trans           &trans             &trans  &trans  &trans
 &trans  &trans  &trans      &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &trans  &trans           &trans             &kp RC(PAGE_UP)  &kp RC(PAGE_DOWN)  &trans  &trans  &trans
 &trans  &trans  &trans      &trans           &trans             &trans  &trans  &kp PRINTSCREEN  &trans             &trans           &trans             &trans  &trans  &trans
-&trans  &trans  &trans      &trans           &trans             &trans  &trans  &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans           &trans             &trans  &trans  &trans
+&trans  &trans  &trans      &trans           &kp C_MUTE         &trans  &trans  &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans           &trans             &trans  &trans  &trans
             >;
         };
     };
