@@ -80,12 +80,12 @@
 
         copy_left {
             bindings = <&kp LC(C)>;
-            key-positions = <27 28>;
+            key-positions = <41 42>;
         };
 
         paste_left {
             bindings = <&kp LC(V)>;
-            key-positions = <42 41>;
+            key-positions = <27 28>;
         };
     };
 
